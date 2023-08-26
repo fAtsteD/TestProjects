@@ -7,13 +7,14 @@ class TestProjectsPlugin extends MantisPlugin
 {
     /**
      * A method that populates the plugin information and minimum requirements.
+     *
      * @return void
      */
     function register()
     {
         $this->name = 'Test projects';
         $this->description = 'Create projects, bugs and users';
-        $this->page = '';
+        $this->page = plugin_page('generate_data');
 
         $this->version = MANTIS_VERSION;
         $this->requires = array(
@@ -25,17 +26,17 @@ class TestProjectsPlugin extends MantisPlugin
 
     /**
      * Plugin initialization
+     *
      * @return void
      */
     function init()
     {
-        plugin_require_api('core/graph_api.php');
-        plugin_require_api('core/Period.php');
-        require_api('summary_api.php');
+        plugin_require_api('core/generate_api.php');
     }
 
     /**
      * Default plugin configuration.
+     *
      * @return array
      */
     function config()
@@ -44,21 +45,27 @@ class TestProjectsPlugin extends MantisPlugin
     }
 
     /**
-     * Plugin events
-     * @return array
-     */
-    function events()
-    {
-        return array();
-    }
-
-    /**
      * plugin hooks
+     *
      * @return array
      */
     function hooks()
     {
-        $t_hooks = array();
+        $t_hooks = array(
+            'EVENT_MENU_MANAGE' => 'manageMenu',
+        );
         return $t_hooks;
+    }
+
+    /**
+     * Add page for partially generate data
+     *
+     * @return array
+     */
+    public function manageMenu()
+    {
+        return [
+            '<a href="' . plugin_page('generate_data') . '">Generate Data</a>',
+        ];
     }
 }
