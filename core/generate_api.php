@@ -109,9 +109,6 @@ final class TestProjectsGenerate
 
     private function user($p_name, $p_project_id = 0): int
     {
-        $t_cookie = user_create($p_name, '123456', "$p_name@gmail.com", VIEWER);
-        return auth_user_id_from_cookie($t_cookie);
-
         $t_data = array(
             'query' => array(),
             'payload' => array(
@@ -119,7 +116,7 @@ final class TestProjectsGenerate
                 'email' => "$p_name@example.com",
                 'access_level' => array('id' => VIEWER),
                 'real_name' => $p_name,
-                'password' => '12345',
+                'password' => '123456',
                 'enabled' => true
             )
         );
